@@ -102,8 +102,8 @@
         const tabContents = document.querySelectorAll('.tab-content');
 
         tabButtons.forEach(button => {
-            button.addEventListener('click', function (event) {
-                const tabName = this.getAttribute('data-tab');
+            button.addEventListener('click', function (event) { //event target
+                const tabName = this.getAttribute('data-tab'); //data attr
 
                 tabContents.forEach(content => {
                     content.style.display = 'none';

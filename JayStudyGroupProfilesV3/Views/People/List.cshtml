@@ -69,7 +69,7 @@
             //SEARCH
             const searchInput = document.getElementById("searchInput");
             const searchBtn = document.getElementById("searchButton");
-            const table = document.getElementById("peopleTable"); // Ensure this is correctly targeting your table!
+            const table = document.getElementById("peopleTable");
             const rows = table.querySelectorAll("tr[data-firstname]");
 
             searchBtn.addEventListener("click", function () {
@@ -79,11 +79,13 @@
                     const firstName = row.getAttribute("data-firstname").toLowerCase();
                     const cells = row.cells;
 
+                    //the reddening
                     if (firstName.includes(searchTerm)) {
                         Array.from(cells).forEach(cell => {
                             cell.style.color = "red";
                         });
 
+                        //timer
                         setTimeout(() => {
                             Array.from(cells).forEach(cell => {
                                 cell.style.color = "";
@@ -101,7 +103,8 @@
             const saveButton = document.getElementById("saveButton");
             const retrieveButton = document.getElementById("retrieveButton");
             const clearButton = document.getElementById("clearButton");
-           
+
+            //save
             saveButton.addEventListener("click", function () {
                 const dataString = getTableDataAsString();
                 console.log("Saving:", dataString);
@@ -109,6 +112,7 @@
                 alert("Saved.");
             });
 
+            //retrieve
             retrieveButton.addEventListener("click", function () {
                 const storedData = localStorage.getItem("peopleData");
                 console.log("Retrieved:", storedData);
@@ -121,6 +125,7 @@
                 }
             });
 
+            //clear
             clearButton.addEventListener("click", function () {
                 localStorage.removeItem("peopleData");
                 clearTable();
@@ -176,6 +181,7 @@
                 });
             }
 
+            //delete
             function deleteRow(row) {
                 row.remove();
             }
