@@ -15,7 +15,7 @@
     @Html.ActionLink("Create New", "AddPerson")
 </p>
 
-<table class="table" id="pTable">
+<table class="table" id="peopleTable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.stuNum)
@@ -51,7 +51,7 @@
                 @Html.DisplayFor(modelItem => person.email)
             </td>
             <td>
-                <a href="@person.delete" class="btn btn-outline-success" onclick="deleteRow(this)">DELETE</a>
+                <a href="@person.delete" class="btn btn-outline-danger" onclick="deleteRow(this)">DELETE</a>
             </td>
 
         </tr>
@@ -60,21 +60,19 @@
 </table>
 
 <button id="saveButton" class="btn btn-outline-success">Save to Local Storage</button>
-<button id="retrieveButton" class="btn btn-secondary">Retrieve from Local Storage</button>
-<button id="clearButton" class="btn btn-danger">Clear Local Storage</button>
+<button id="retrieveButton" class="btn btn-outline-secondary">Retrieve from Local Storage</button>
+<button id="clearButton" class="btn btn-outline-danger">Clear Local Storage</button>
 
 @section Scripts {
     <script>
-        //Search Function
         document.addEventListener("DOMContentLoaded", function () {
-            //get references
+            //SEARCH
             const searchInput = document.getElementById("searchInput");
-            const searchButton = document.getElementById("searchButton");
-            const table = document.getElementById("pTable");
+            const searchBtn = document.getElementById("searchButton");
+            const table = document.getElementById("peopleTable"); // Ensure this is correctly targeting your table!
             const rows = table.querySelectorAll("tr[data-firstname]");
 
-            searchButton.addEventListener("click", function () {
-                //when button is clicked
+            searchBtn.addEventListener("click", function () {
                 const searchTerm = searchInput.value.toLowerCase();
 
                 rows.forEach(row => {
@@ -82,26 +80,108 @@
                     const cells = row.cells;
 
                     if (firstName.includes(searchTerm)) {
-                        // Change text color to red
                         Array.from(cells).forEach(cell => {
                             cell.style.color = "red";
                         });
 
-                        // Reset color after 3 seconds
                         setTimeout(() => {
                             Array.from(cells).forEach(cell => {
-                                cell.style.color = ""; // Reset to default color
+                                cell.style.color = "";
                             });
                         }, 3000);
                     } else {
                         Array.from(cells).forEach(cell => {
-                            cell.style.color = ""; // Ensure other rows are default color
+                            cell.style.color = "";
                         });
                     }
                 });
             });
+
+            //LOCAL STOR
+            const saveButton = document.getElementById("saveButton");
+            const retrieveButton = document.getElementById("retrieveButton");
+            const clearButton = document.getElementById("clearButton");
+           
+            saveButton.addEventListener("click", function () {
+                const dataString = getTableDataAsString();
+                console.log("Saving:", dataString);
+                localStorage.setItem("peopleData", dataString);
+                alert("Saved.");
+            });
+
+            retrieveButton.addEventListener("click", function () {
+                const storedData = localStorage.getItem("peopleData");
+                console.log("Retrieved:", storedData);
+                if (storedData) {
+                    clearTable();
+                    populateTableFromString(storedData);
+                    alert("Retrieved.");
+                } else {
+                    alert("No data.");
+                }
+            });
+
+            clearButton.addEventListener("click", function () {
+                localStorage.removeItem("peopleData");
+                clearTable();
+                alert("Cleared.");
+            });
+
+            function getTableDataAsString() {
+                let dataString = "";
+                const rows = table.querySelectorAll("tr[data-firstname]");
+                rows.forEach(row => {
+                    dataString += row.cells[0].textContent + ",";
+                    dataString += row.cells[1].textContent + ",";
+                    dataString += row.cells[2].textContent + ",";
+                    dataString += row.cells[3].textContent + ";";
+                });
+                return dataString;
+            }
+
+            function clearTable() {
+                const rows = table.querySelectorAll("tr[data-firstname]");
+                rows.forEach(row => row.remove());
+            }
+
+            function populateTableFromString(dataString) {
+                const rowsData = dataString.split(";");
+                rowsData.forEach(rowData => {
+                    if (rowData) {
+                        const values = rowData.split(",");
+                        console.log("Values:", values);
+                        if (values.length === 4) {
+                            const newRow = table.insertRow();
+                            newRow.setAttribute("data-firstname", values[1]);
+                            const cell1 = newRow.insertCell(0);
+                            const cell2 = newRow.insertCell(1);
+                            const cell3 = newRow.insertCell(2);
+                            const cell4 = newRow.insertCell(3);
+                            const cell5 = newRow.insertCell(4);
+                            cell1.textContent = values[0];
+                            cell2.textContent = values[1];
+                            cell3.textContent = values[2];
+                            cell4.textContent = values[3];
+
+                            let deleteLink = document.createElement('a');
+                            deleteLink.href = "#";
+                            deleteLink.className = "btn btn-outline-danger";
+                            deleteLink.textContent = "DELETE";
+                            deleteLink.onclick = function () {
+                                deleteRow(newRow);
+                            };
+                            cell5.appendChild(deleteLink);
+                        }
+                    }
+                });
+            }
+
+            function deleteRow(row) {
+                row.remove();
+            }
         });
     </script>
+    @Scripts.Render("~/bundles/jqueryval")
 }
 
 <script src="~/Scripts/myScript.js"></script>

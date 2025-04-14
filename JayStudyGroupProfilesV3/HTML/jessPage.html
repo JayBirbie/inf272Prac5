@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html id="top">
+
 <head>
     <meta charset="utf-8" />
     <title>Jessica Details</title>
     <link href="../Content/myStyle.css" type="text/css" rel="stylesheet">
 </head>
+
 <body>
     <h1>Person 3 - Jessica Turner</h1>
     <hr>
@@ -19,25 +21,40 @@
         <li><a href="javascript:history.back()">BACK</a></li>
     </ul>
     <hr>
-    <div class="cust-container">
+
+    <div class="tab-buttons">
+        <button class="tab-button active" data-tab="biography">Biography</button>
+        <button class="tab-button" data-tab="hobbies">Hobbies</button>
+        <button class="tab-button" data-tab="modules">Modules</button>
+    </div>
+
+    <div class="tab-content cust-container" id="biography">
         <h2>Biography and Background</h2>
         <div class="box">
             <img class="image" src="images/jess1.jpg" alt="Jess1" />
             <p>
-                Jessica Turner, from Cape Town, Western Cape, is enrolled in a Bachelor of Information Science program. She has always been drawn to data and its potential to solve complex problems, particularly in industries like healthcare and finance. Jessica is passionate about using data analytics to improve public health systems in South Africa, with the aim of making healthcare more accessible and efficient for everyone.
+                Jessica Turner, from Cape Town, Western Cape, is enrolled in a Bachelor of Information Science program.
+                She has always been drawn to data and its potential to solve complex problems, particularly in industries
+                like healthcare and finance. Jessica is passionate about using data analytics to improve public health
+                systems in South Africa, with the aim of making healthcare more accessible and efficient for everyone.
             </p>
         </div>
     </div>
-    <div class="cust-container">
+
+    <div class="tab-content cust-container" id="hobbies" style="display:none;">
         <h2>Hobbies</h2>
         <div class="box">
             <p>
-                Jessica has a creative side and loves painting and sketching in her spare time. She’s particularly drawn to abstract art and often uses it as a way to unwind after a long day of coding. Jessica also enjoys yoga and meditation, which help her stay focused and balanced during busy academic periods. On weekends, she volunteers at a local animal shelter.
+                Jessica has a creative side and loves painting and sketching in her spare time. She’s particularly drawn
+                to abstract art and often uses it as a way to unwind after a long day of coding. Jessica also enjoys yoga
+                and meditation, which help her stay focused and balanced during busy academic periods. On weekends, she
+                volunteers at a local animal shelter.
             </p>
-            <img class="image" src="images/jess2jpg.jpg" alt="Jess2" />
+            <img class="image" src="images/jess2jpg.jpg" alt="Jess2" style="float: right; margin-left: 10px;" />
         </div>
     </div>
-    <div class="cust-container">
+
+    <div class="tab-content cust-container" id="modules" style="display:none;">
         <h2>Modules</h2>
         <div class="box">
             <p>
@@ -79,5 +96,29 @@
             </table>
         </div>
     </div>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                const tabName = this.getAttribute('data-tab');
+
+                tabContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+
+                document.getElementById(tabName).style.display = 'block';
+
+                tabButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
+
 </html>
