@@ -1,0 +1,107 @@
+﻿@model IEnumerable<JayStudyGroupProfilesV3.Models.PersonModel>
+
+@{
+    ViewBag.Title = "List of Members";
+}
+
+<h2>List of People</h2>
+
+<div class="mb-3">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search String..." />
+    <button id="searchButton" class="btn btn-outline-success mt-2">Search</button>
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "AddPerson")
+</p>
+
+<table class="table" id="pTable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.stuNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.delete)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var person in Model) //For each person
+    {
+        <tr data-firstname="@person.fName">
+            <td>
+                @Html.DisplayFor(modelItem => person.stuNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => person.fName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => person.lName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => person.email)
+            </td>
+            <td>
+                <a href="@person.delete" class="btn btn-outline-success" onclick="deleteRow(this)">DELETE</a>
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<button id="saveButton" class="btn btn-outline-success">Save to Local Storage</button>
+<button id="retrieveButton" class="btn btn-secondary">Retrieve from Local Storage</button>
+<button id="clearButton" class="btn btn-danger">Clear Local Storage</button>
+
+@section Scripts {
+    <script>
+        //Search Function
+        document.addEventListener("DOMContentLoaded", function () {
+            //get references
+            const searchInput = document.getElementById("searchInput");
+            const searchButton = document.getElementById("searchButton");
+            const table = document.getElementById("pTable");
+            const rows = table.querySelectorAll("tr[data-firstname]");
+
+            searchButton.addEventListener("click", function () {
+                //when button is clicked
+                const searchTerm = searchInput.value.toLowerCase();
+
+                rows.forEach(row => {
+                    const firstName = row.getAttribute("data-firstname").toLowerCase();
+                    const cells = row.cells;
+
+                    if (firstName.includes(searchTerm)) {
+                        // Change text color to red
+                        Array.from(cells).forEach(cell => {
+                            cell.style.color = "red";
+                        });
+
+                        // Reset color after 3 seconds
+                        setTimeout(() => {
+                            Array.from(cells).forEach(cell => {
+                                cell.style.color = ""; // Reset to default color
+                            });
+                        }, 3000);
+                    } else {
+                        Array.from(cells).forEach(cell => {
+                            cell.style.color = ""; // Ensure other rows are default color
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<script src="~/Scripts/myScript.js"></script>

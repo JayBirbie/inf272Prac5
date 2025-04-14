@@ -1,0 +1,130 @@
+﻿html{
+    background-color: #8ebc8e;
+}
+
+body {
+    background-color: #e7ffe7;
+    margin: 20px;
+    padding: 15px 20px 20px 20px;
+    border: 3px solid #228b22;
+}
+
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/*NAV BAR*/
+
+.nav-item:hover:not(.active) {
+    background-color: lightgray;
+}
+
+.nav-link.active {
+    background-color: #8ebc8e;
+}
+
+ul.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: #333;
+}
+
+    ul.nav li {
+        float: left;
+    }
+
+        ul.nav li a {
+            display: block;
+            color: white;
+            border-left:2px solid white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+            ul.nav li a:hover:not(.active) {
+               background-color: #808080;
+            }
+
+            ul.nav li a.active {
+              background-color: #228b22;
+            }
+
+
+
+/*CONTENT*/
+
+h1, h2, p, table{
+    padding: 10px;
+    margin: auto;
+}
+
+.cust-container {
+    background-color: #ffffff;
+    border: 3px solid #228b22;
+    padding: 10px;
+    margin: 10px;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+    .box img {
+        flex-grow: 0;
+        align-self: center;
+        padding: 10px;
+        width: 200px;
+        height: 200px;
+    }
+    .box img:hover {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+
+.box p {
+    flex: 3 3 auto;
+    align-self: center;    
+    float: left;
+}
+
+.boxes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+.boxes img {
+    flex-grow: 0;
+    align-self: center;
+    padding: 10px;
+    width: 200px;
+    height: 200px;
+}
+
+    .boxes img:hover {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+
+/*.image {
+   
+}*/
+
+/*MEDIA Q*/
+
+@media screen and (max-width: 700px) {
+    .cust-container {
+        text-align: center;
+    }
+
+    .box {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

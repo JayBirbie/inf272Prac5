@@ -1,0 +1,87 @@
+﻿
+body {
+    background-color: #a1c6a1;
+    margin: 20px;
+    padding: 15px 20px 20px 20px;
+}
+
+/* NAVIGATION */
+/*.navbar-custom {
+    background-color: #333;
+}*/
+
+    /*.navbar-custom .nav-link {*/
+/*        color: white;*/
+        /*border-left: 2px solid white;
+        text-align: center;
+        padding: 14px 16px;
+    }*/
+
+        .navbar-custom .nav-item:hover:not(.active) {
+            background-color: lightgray;
+        }
+
+        .navbar-custom .nav-link.active {
+            background-color: #acbeac;
+        }
+
+/* CARD CONTENT BLOCKS */
+
+
+
+h2, p, table {
+    padding: 10px;
+    margin: auto;
+}
+
+h1 {
+    padding: 0px 10px 10px 10px;
+}
+
+/* IMAGE & TEXT BOX */
+.box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+    .box img {
+        flex-grow: 0;
+        align-self: center;
+        padding: 10px;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+        .box img:hover {
+            transform: scaleX(-1);
+        }
+
+    .box p {
+        flex: 1;
+        align-self: center;
+    }
+
+/* TABLE */
+table {
+    width: 100%;
+}
+
+th, td {
+    padding: 6px;
+    text-align: left;
+}
+
+/* RESPONSIVENESS */
+@media screen and (max-width: 700px) {
+    .box {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+        .box img {
+            margin: 0 auto;
+        }
+}
